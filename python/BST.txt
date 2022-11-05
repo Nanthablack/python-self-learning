@@ -1,0 +1,96 @@
+import java.util.*;
+public class BSTJEY {
+    public static void main(String[] args) {
+      Scanner scan = new Scanner(System.in);
+      System.out.print("  จำนวนค่า   = ")
+      int n = scan.nextInt();
+      int []a = new int[n];
+      
+    }
+
+    class TNode {
+        int data;
+        TNode parent, left, right;
+
+        public TNode(int d) {
+            data = d;
+            parent = left = right = null;
+        }
+    }// class TNode
+
+    TNode root = null;
+
+    void add(int data) {
+        if (root == null) {
+            root = new TNode(data);
+        } else {
+            addR(root, data);
+        }
+    }
+
+    void addR(TNode p, int data) {
+        if (data < p.data) {
+            if (p.left == null) {
+                p.left = new TNode(data);
+            } else {
+                addR(p.left, data);
+            }
+        } else {
+            if (data > p.data) {
+                if (p.right == null) {
+                    p.right = new TNode(data);
+                } else {
+                    addR(p.right, data);
+                }
+            }
+        }
+    }
+
+    void Remove(int data) {
+        TNode t = new TNode(data + 1);
+        t.left = root;
+        RemoveR(t, data);
+    }
+
+    void RemoveR(TNode t, int data) {
+        if (t == null)
+            return;
+        if (data < t.data) {
+            RemoveR(t.left, data);
+        } else if (data > t.data) {
+            RemoveR(t.right, data);
+        } else {
+            // data = t.data : to remove
+            if ((t.left == null) || (t.right == null)) {
+                TNode q = (t.left == null) ? t.right : t.left;
+                if (q != null)
+                    q.parent = t.parent;
+                if (t == t.parent.left) {
+                    t.parent.left = q;
+                } else {
+                    t.parent.right = q;
+                }
+            } else { // 2 childs. ตัองแต่ว่สนนี้ยังมะรู้ทำไง
+                TNode p = maxP(t.left);
+                swap(p, t);
+                deleteR(t.left);
+            }
+        }
+    }
+
+    void maxP(TNode p) {
+        while (p.right != null) {
+            p = p.right;
+        }
+        return p;
+    }
+
+    void swap(TNode p, TNode t) {
+
+    }
+
+    void deleteR(TNode t) {
+        t = null;
+
+    }
+}

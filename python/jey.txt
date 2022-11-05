@@ -1,0 +1,79 @@
+public class jey {
+    int SIZE = 100;
+    int n = 0;
+    int[] heap = new int[SIZE];
+    int[] deqArray = new int[SIZE];
+
+    public void enq(int data) {
+        int p = n++;
+        heap[p] = data;
+
+        while ((p > 0) && (heap[p] < heap[(p - 1) / 2])) {
+            swap(p, (p - 1) / 2);
+        }
+    }
+
+    public int deq() {
+        int data = heap[0];
+        heap[0] = heap[--n];
+        int p = 0, q;
+
+        while (true) {
+            int left = (2 * p) + 1;
+            int right = (2 * p) + 2;
+
+            if (n < right) {
+                dequeueArray[n-1] = data;
+                return data;
+            }
+
+            if (n == right) {
+                q = left;
+            } else {
+                q = heap[left] < heap[right] ? left : right;
+            }
+
+            if (heap[p] < heap[q]) {
+                deqArray[n-1] = data;
+                return data;
+            }
+                
+
+            swap(p, q);
+            p = q;
+        }
+    }
+
+    public void swap(int i, int j) {
+        int tmp = heap[i];
+        heap[i] = heap[j];
+        heap[j] = tmp;
+    }
+
+    public boolean isEmpty() {
+        return n == 0;
+    }
+
+    public boolean isFull() {
+        return n == heap.length - 1;
+    }
+
+    public String printAll() {
+        String s = "[";
+
+        if (isEmpty()) {
+            s += "]";
+        } else {
+            for (int i = 0; i < n; i++) {
+                s += heap[i];
+
+                if (i == n - 1) {
+                    s += "]";
+                } else {
+                    s += ", ";
+                }
+            }
+        }
+       return s;
+    }
+}
